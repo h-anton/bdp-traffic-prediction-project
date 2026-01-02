@@ -11,7 +11,7 @@
   "forwardPorts": [4040, 7077, 8080, 8081, 8082],
 
   // Optional post-create setup (e.g., sbt download)
-  "postCreateCommand": "/workspace/.devcontainer/unzip-datasets.sh",
+  //"postCreateCommand": "/workspace/.devcontainer/unzip-datasets.sh",
 
   // Control how VSCode connects to the container
   // "remoteUser": "root", // or non-root if your Dockerfile adds a user
