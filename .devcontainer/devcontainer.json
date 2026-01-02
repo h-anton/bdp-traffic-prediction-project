@@ -1,0 +1,40 @@
+{
+  "name": "BDP",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "dev", // This should match the name of your dev container in docker-compose
+  "workspaceFolder": "/workspace",
+
+
+  // Forward ports for Spark/Flink/... UI (optional)
+  "forwardPorts": [4040, 7077, 8080, 8081, 8082],
+
+  // Optional post-create setup (e.g., sbt download)
+  "postCreateCommand": "/workspace/.devcontainer/unzip-datasets.sh",
+
+  // Control how VSCode connects to the container
+  // "remoteUser": "root", // or non-root if your Dockerfile adds a user
+  // "settings": {
+  //   "terminal.integrated.defaultProfile.linux": "bash"
+  // },
+
+      // This section customizes the VS Code instance inside the container
+  "customizations": {
+    "vscode": {
+      // List of extensions to install automatically
+      "extensions": [
+        "asciidoctor.asciidoctor-vscode"
+        // You can add other extensions here, for example:
+        // "ms-python.python",
+        // "redhat.java"
+      ]
+    }
+  },
+
+  // If you need to mount local paths into the devcontainer
+  "mounts": [
+    "source=${localWorkspaceFolder}/.sbt,target=/root/.sbt,type=bind",
+    "source=${localWorkspaceFolder}/.ivy2,target=/root/.ivy2,type=bind"
+  ]
+}
