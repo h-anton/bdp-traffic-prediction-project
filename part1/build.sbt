@@ -15,7 +15,8 @@ organization := "org.anton"
 ThisBuild / scalaVersion := scalaVer
 
 val sparkDependencies = Seq(
-      "org.apache.spark" %% "spark-sql" % sparkVer % "provided"
+      "org.apache.spark" %% "spark-sql" % sparkVer % "provided",
+      "org.apache.spark" %% "spark-mllib" % sparkVer % "provided",
       )
 
 lazy val root = (project in file(".")).
