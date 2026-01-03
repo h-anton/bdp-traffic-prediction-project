@@ -4,6 +4,8 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.streaming.{StreamingContext, Seconds}
 
+// spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.0 --master local[*] target/scala-2.13/myProject.jar
+
 object Main {
   def main(args: Array[String]): Unit = {
 
@@ -88,7 +90,7 @@ object Main {
     /*
      * Task 2: Recompute features online
      */
-    
+
 
 
     // output stream to console
