@@ -1,0 +1,7 @@
+[0m[[0m[0mdebug[0m] [0m[0mnot up to date. inChanged = true, force = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mUpdating ProjectRef(uri("file:/workspace/part2/project/"), "part2-build")...[0m
+[0m[[0m[0minfo[0m] [0m[0mUpdating part2-build[0m
+[0m[[0m[0minfo[0m] [0m[0mResolved part2-build dependencies[0m
+[0m[[0m[0minfo[0m] [0m[0mFetching artifacts of part2-build[0m
+[0m[[0m[0minfo[0m] [0m[0mFetched artifacts of part2-build[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone updating ProjectRef(uri("file:/workspace/part2/project/"), "part2-build")[0m

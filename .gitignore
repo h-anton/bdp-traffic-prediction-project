@@ -3,5 +3,7 @@ part1/project/target
 part1/output_10000_1000.model/
 part1/output_5000_100.model/
 part1/output.model/
+part2/target
+part2/project/target
 data/city_M_speed_10000_1000.parquet
 data/city_M_volume_10000_1000.parquet
