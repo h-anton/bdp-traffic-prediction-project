@@ -11,6 +11,8 @@ import org.apache.spark.ml.regression.{GBTRegressionModel, GBTRegressor}
 
 import DatasetReader._
 
+// spark-submit --master local[*] target/scala-2.13/myProject.jar
+
 object Main {
   def main(args: Array[String]): Unit = {
 
@@ -79,8 +81,8 @@ object Main {
  
     // join the 3 dataframes
     val trafficDF = longSpeedDF
-      .join(longVolumeDF, Seq("timestamp", "node"), "inner")
-      .join(staticFeaturesNodeIDSpeedLimitDF, Seq("node"), "inner")
+      .join(longVolumeDF, Seq("timestamp", "node"), "full")
+      .join(staticFeaturesNodeIDSpeedLimitDF, Seq("node"), "full")
 
     /* 
      * Task 2: Feature selection
@@ -161,7 +163,8 @@ object Main {
       .setInputCols(importantCols)
       .setOutputCol("features")
 
-    val processedDF = assembler.transform(finalDF.na.drop()).persist()
+    //val processedDF = assembler.transform(finalDF.na.drop()).persist()
+    val processedDF = assembler.transform(finalDF.na.fill(-1)).persist()
 
     /*
      * Task 3: Using a predictive model
@@ -218,9 +221,9 @@ object Main {
       .groupBy("time_index")
       .agg(collect_list("speed_next_30min").alias("speed_prediction"))
       .select("speed_prediction")
-      .foreach { row => // row is [ArraySeq(speed1, speed2, ...)]
-        println(row.getSeq(0).mkString(", "))
-      }
+//      .foreach { row => // row is [ArraySeq(speed1, speed2, ...)]
+//        println(row.getSeq(0).mkString(", "))
+//      }
 
     model.write.overwrite().save(dataset.getOutputFileName())
 
