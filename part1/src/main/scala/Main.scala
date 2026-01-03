@@ -142,11 +142,16 @@ object Main {
       )
 
     // add speed in 30 min for data training
-    val finalDF = trafficWithFeaturesNumericalDF
-      .withColumn(
-        "speed_next_30min",
-        lead(col("speed"), 6).over(lagFeatureWindow) // 30 min = 6 x 5 min interval
-      )
+    //https://stackoverflow.com/questions/52025223/how-does-foldleft-in-scala-work-on-dataframe
+    val futureMinutes = Seq(5, 10, 15, 20, 25, 30)
+    val finalDF = futureMinutes
+      .foldLeft(trafficWithFeaturesNumericalDF) { (df, minutes) =>
+        val offset = minutes / 5
+        df.withColumn(
+          s"speed_next_${minutes}min",
+          lead(col("speed"), offset).over(lagFeatureWindow)
+        )
+      }
 
     // Filter columns based on relevance for traffic prediction
     val importantCols = Array(
