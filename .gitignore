@@ -1,2 +1,4 @@
 part1/target
 part1/project/target
+data/city_M_speed_10000_1000.parquet
+data/city_M_volume_10000_1000.parquet

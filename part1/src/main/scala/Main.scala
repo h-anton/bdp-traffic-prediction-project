@@ -171,7 +171,6 @@ object Main {
     // Split data in test and training data
     val Array(trainingData, testData) = processedDF.randomSplit(Array(0.8, 0.2), seed = 42)
 
-
     val gbt = new GBTRegressor()
       .setLabelCol("speed_next_30min")
       .setFeaturesCol("features")
@@ -209,10 +208,6 @@ object Main {
     println("Predictions for the next 30 min:")
     println("========")
 
-    //val output = predictions
-    //  .orderBy("month_of_year", "week_of_year", "day_of_week", "hour_of_day", "minutes_of_hour")
-    //  .select("prediction", "node_id", "month_of_year", "week_of_year", "day_of_week", "hour_of_day", "minutes_of_hour")
-    //  .collect()
     //https://www.mungingdata.com/apache-spark/aggregations/
     //https://spark.apache.org/docs/latest/api/scala/org/apache/spark/sql/functions$.html#collect_list(columnName:String):org.apache.spark.sql.Column
     //https://stackoverflow.com/questions/53927574/how-to-round-decimal-in-scala-spark
