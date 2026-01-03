@@ -10,6 +10,7 @@ class DatasetReader(
   // Read file
   private def loadFile(fileName: String): DataFrame = {
     val fullPath = s"$basePath/$fileName"
+    println(fullPath)
     spark.read.parquet(fullPath)
   }
 
@@ -26,4 +27,5 @@ class DatasetReader(
     val fileName = s"city_M_static_features.parquet"
     loadFile(fileName)
   }
+  def getOutputFileName(): String = s"file:///workspace/part1/output_${measurements}_${segments}.model"
 }
