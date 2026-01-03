@@ -85,6 +85,12 @@ object Main {
       volumeDF("volume")
     )
 
+    /*
+     * Task 2: Recompute features online
+     */
+    
+
+
     // output stream to console
     val query = resultDF.writeStream
       .format("console")
