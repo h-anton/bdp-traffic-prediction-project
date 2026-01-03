@@ -24,6 +24,10 @@ object Main {
     // kafka config
     val bootstrapServers = "kafka:9094"
 
+    /*
+     * Task 1: Setup a streaming pipeline
+     */
+
     // Speed and Volume topics return data like this:
     // {"timestamp":"2024-07-01T19:05:00","node_id":"node_281","value":1}
     val schema = new StructType()
@@ -31,6 +35,7 @@ object Main {
       .add("node_id", StringType)
       .add("value", DoubleType)
 
+    // streams for speed and volume topics from kafka
     val speedKafkaStream = spark.readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", bootstrapServers)
@@ -43,6 +48,7 @@ object Main {
       .option("subscribe", "volume")
       .load()
 
+    // Convert JSON to correct schema, add 5 min watermark
     val speedDF = speedKafkaStream
       .selectExpr("CAST(value AS STRING) as json_str")
       .select(from_json(col("json_str"), schema).as("data"))
@@ -63,6 +69,7 @@ object Main {
       )
       .withWatermark("timestamp", "5 minutes")
 
+    // Join speed and volume dataframes
     val joinedDF = speedDF.join(
       volumeDF,
       speedDF("node") === volumeDF("node") &&
@@ -70,6 +77,7 @@ object Main {
       "inner"
     )
 
+    // remove duplicates
     val resultDF = joinedDF.select(
       speedDF("timestamp"),
       speedDF("node"),
@@ -77,6 +85,7 @@ object Main {
       volumeDF("volume")
     )
 
+    // output stream to console
     val query = resultDF.writeStream
       .format("console")
       .outputMode("append")
